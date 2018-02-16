@@ -1,0 +1,54 @@
+// Example program
+#include <iostream>
+#include <string>
+struct complex_t {
+public:  
+  complex_t() {
+    real = 0.0f;
+    imag = 0.0f;
+    ++count;
+  }
+  
+  complex_t add(complex_t other) const { // complex_t const * const
+        // нельзя this = &other;
+        complex_t result;
+        result.real = this->real + other.real;
+        result.imag = this->imag + other.imag;
+        return result;
+  }
+
+    std::ostream & output( std::ostream & stream ) const {
+      return stream << '(' << real << ", " << imag << ')';   
+    }
+    ~complex_t()
+    {
+        
+    }
+    static unsigned int count;
+    void set_real(float value) {
+        if(value > 0.0f) {
+          real = value;   
+        }
+    }
+private:    
+    float real;
+    float imag;
+  
+};
+unsigned int complex_t::count = 0;
+
+int main()
+{
+  
+  complex_t complex1;
+  complex_t complex2;
+  complex_t result = complex1.add(complex2);
+ // std::cout << add(complex1, complex2) << std::endl;
+  result.output(std::cout);
+  std::cout << complex_t::count;
+  complex1.~complex_t();
+  complex2.~complex_t();
+  complex1.set_real(1.0f);
+  return 0;     
+}
+                                                
